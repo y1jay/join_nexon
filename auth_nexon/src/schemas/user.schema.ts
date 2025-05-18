@@ -36,7 +36,7 @@ export class User {
 
 	// 유저 로그인 타입
 	@Prop({ required: true })
-	social_type: string;
+	login_type: string;
 
 	// 유저 가입일시
 	@Prop({ required: true })
@@ -48,4 +48,3 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-

@@ -1,7 +1,6 @@
-export class resultDto<T> {
+export class Result<T> {
 	statusCode: number;
 	message: string;
 	error?: string;
 	data?: T;
 }
-

@@ -11,7 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 		ConfigModule.forRoot({
 			isGlobal: true,
 		}),
-		MongooseModule.forRoot(process.env.DB_URL),
+		MongooseModule.forRootAsync({ useFactory: () => ({ uri: process.env.DB_URL }) }),
 		MongooseModule.forFeature([
 			{ name: User.name, schema: UserSchema },
 			{ name: Login.name, schema: LoginSchema },
@@ -21,7 +21,12 @@ import { JwtModule } from '@nestjs/jwt';
 		}),
 	],
 	controllers: [AuthController],
-	providers: [AuthService],
+	providers: [
+		// {
+		// 	provide: APP_INTERCEPTOR,
+		// 	useClass: ResponseInterceptor,
+		// },
+		AuthService,
+	],
 })
 export class AppModule {}
-

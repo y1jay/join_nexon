@@ -8,20 +8,27 @@ import { joinUserDto } from 'src/dto/joinUserDto';
 export class AuthController {
 	constructor(
 		@Inject('AUTH_SERVICE')
-		private readonly AuthProxy: ClientProxy
+		private readonly AuthProxy: ClientProxy,
+		private readonly AuthService: AuthService
 	) {}
 
+	// 사용자 가입
 	@Post('join')
 	join_user(@Body('joinUser') join_user_dto: joinUserDto): Observable<any> {
 		return this.AuthProxy.send({ cmd: 'joinUser' }, { join_user_dto: join_user_dto });
 	}
 	@Get('find')
-	find_user(): Observable<any> {
+	find_user(@Req() req: Request): Observable<any> {
+		// console.log(req['user'], 'USER@#!@');
 		return this.AuthProxy.send({ cmd: 'findUser' }, '');
 	}
+	// 사용자 로그인
 	@Patch('login')
-	login_user(@Query('name') name: string): Observable<any> {
-		return this.AuthProxy.send({ cmd: 'hello' }, name);
+	async login_user(
+		@Body('loginUser') login_user: { user_id: string; password: string },
+		@Res() res: Response
+	): Promise<any> {
+		const auth = this.AuthProxy.send({ cmd: 'loginUser' }, login_user).toPromise();
+		return this.AuthService.logIn(auth, res);
 	}
 }
-
