@@ -11,6 +11,7 @@ export const dayDiff = (leave_date: Date) => {
 };
 // 등급
 export const getGrade = (grade: string) => {
-	const login_grade = { user: 1, operator: 2, auditor: 3, admin: 4 };
+	const login_grade = { user: 1, operator: 2, auditor: 3 };
 	return login_grade[grade] ?? null;
 };
+

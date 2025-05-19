@@ -1,6 +1,6 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { BadRequestException, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable  } from '@nestjs/common';
 // import { AuthService } from "src/services/auth.service";
 
 @Injectable()
@@ -12,7 +12,7 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'access') {
 			// 토큰
 			jwtFromRequest: ExtractJwt.fromExtractors([
 				(request) => {
-					// console.log(request, 'JSON REQUEST');
+					// 토큰 추출
 					let token: string;
 					if (typeof request.headers.authorization == 'object') {
 						token = request.headers.authorization.access_token;
@@ -21,7 +21,6 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'access') {
 					} else {
 						token = request?.cookies?.Authorization.access_token;
 					}
-					console.log(token, 'STRATEGY TOKEN!!!');
 					return token;
 					// return request?.cookies?.Authorization;
 				},
@@ -29,10 +28,7 @@ export class JwtAccessStrategy extends PassportStrategy(Strategy, 'access') {
 		});
 	}
 
-	async validate(payload: any, context: ExecutionContext) {
-		console.log(context, 'STRATEGY PAYLOAD');
-		// console.log(request, 'RESUETESR#$@#');
-
+	async validate(payload: any) {
 		return payload;
 	}
 }

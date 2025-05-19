@@ -15,6 +15,7 @@ import { JwtAccessStrategy } from './auth/jwtAccess.strategy';
 import { JwtRefreshStrategy } from './auth/jwtRefresh.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './services/auth.service';
+import { RolesGuard } from './guard/role.guard';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
@@ -40,6 +41,7 @@ import { AuthService } from './services/auth.service';
 			provide: APP_GUARD,
 			useClass: jwtAuthGuard,
 		},
+		{ provide: APP_GUARD, useClass: RolesGuard },
 		JwtAccessStrategy,
 		JwtRefreshStrategy,
 		ConfigService,
@@ -62,3 +64,4 @@ import { AuthService } from './services/auth.service';
 	exports: [PassportModule],
 })
 export class AppModule {}
+

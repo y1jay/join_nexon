@@ -9,18 +9,23 @@ export class AllExceptionsFilter implements ExceptionFilter {
 		console.log(exception, 'EXCEOPTION');
 		const { httpAdapter } = this.httpAdapterHost;
 		const ctx = host.switchToHttp();
-		const responseBody = {
+		let responseBody = {
 			statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
 			message: '알 수 없는 서버에러',
 		};
-		console.log(ctx.getNext(), 'EFESFE');
 
 		if (exception instanceof HttpException) {
 			// responseBody.statusCode = exception.getStatus();
 			// responseBody.message = exception.message;
 			Object.assign(responseBody, exception.getResponse());
 		}
-
+		if (exception?.getStatus() == 403) {
+			responseBody = {
+				statusCode: HttpStatus.FORBIDDEN,
+				message: '권한 없음',
+			};
+		}
 		httpAdapter.reply(ctx.getResponse(), responseBody, responseBody.statusCode);
 	}
 }
+

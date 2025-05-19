@@ -10,9 +10,9 @@ const bootstrap = async () => {
 
 	const app = await NestFactory.create(AppModule);
 	app.use(cookieParser());
-
 	await app.listen(port);
 
 	Logger.log(`🚀 Application Port Is ${JSON.stringify(port)}`, 'bootstrap');
 };
 bootstrap();
+

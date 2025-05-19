@@ -1,6 +1,6 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { BadRequestException, ExecutionContext, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
@@ -25,10 +25,7 @@ export class JwtRefreshStrategy extends PassportStrategy(Strategy, 'refresh') {
 		});
 	}
 
-	async validate(payload: any, context: ExecutionContext) {
-		console.log(context, 'STRATEGY PAYLOAD');
-		// console.log(request, 'RESUETESR#$@#');
-
+	async validate(payload: any) {
 		return payload;
 	}
 }

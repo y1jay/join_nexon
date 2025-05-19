@@ -33,11 +33,8 @@ export class joinUserDto {
 	@IsString()
 	password: string;
 
-	// 로그인 타입
-	@IsNotEmpty()
-	@IsString()
-	social_type: string;
-
+	// 내부 확인
+	login_type?: string;
 	state_code?: number;
 	join_date?: Date;
 	access_token?: string;

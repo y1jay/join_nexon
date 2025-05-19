@@ -53,16 +53,16 @@ export class AuthService {
 			// 비밀번호 암호화
 			org['join_user_dto'].password = (await bcrypt.hash(org['join_user_dto'].password, 10)).toString();
 
-			if (!util.getGrade(org['join_user_dto'].login_type)) {
-				return { statusCode: 400, message: '가입 타입이 잘못됐습니다.' };
-			}
+			// if (!util.getGrade(org['join_user_dto'].login_type)) {
+			// 	return { statusCode: 400, message: '가입 타입이 잘못됐습니다.' };
+			// }
 			// 유저 생성
 			const create_user = await new this.user({
 				...org['join_user_dto'],
 				state_code: 200,
+				login_type: 'user',
 				join_date: util.getNow(),
 			}).save({ session });
-			console.log(create_user, 'USER@#$@#');
 			if (!create_user) {
 				return { statusCode: 401, message: '회원 가입 실패.' };
 			}
@@ -118,12 +118,15 @@ export class AuthService {
 		return this.user.find().exec();
 	}
 	// 로그인
-
 	async login_user_service(org: {
 		user_id: string;
 		password: string;
 	}): Promise<Result<{ user?: User; access_token?: string; refresh_token?: string }>> {
 		const login_user = await this.user.findOne({ user_id: org.user_id }).exec();
+		console.log(login_user, 'USER###');
+		if (!login_user) {
+			return { statusCode: 400, message: '회원정보가 없습니다.' };
+		}
 		if (login_user && !(await bcrypt.compare(org.password, login_user.password))) {
 			return { statusCode: 401, message: '비밀번호 오류.' };
 		}
@@ -163,5 +166,24 @@ export class AuthService {
 			message: 'success',
 			data: { user: login_user, access_token: access_token, refresh_token: refresh_token },
 		};
+	}
+	// 권한 부여
+	async provide_user_grade(grade_user_dto: { _id: string; grade: string }): Promise<Result<any>> {
+		// 등급 타입 확인
+		if (!util.getGrade(grade_user_dto.grade)) {
+			return { statusCode: 400, message: '등급 타입이 잘못됐습니다.' };
+		}
+		// 등급 부여
+		const grade_update = await this.user
+			.updateOne(
+				{ _id: grade_user_dto._id, login_type: { $nin: grade_user_dto.grade } },
+				{ login_type: grade_user_dto.grade }
+			)
+			.exec();
+		if (grade_update.modifiedCount > 0) {
+			return { statusCode: 200, message: `[${grade_user_dto._id}] ${grade_user_dto.grade} 등급 부여 성공` };
+		} else {
+			return { statusCode: 401, message: '등급 부여 실패' };
+		}
 	}
 }
