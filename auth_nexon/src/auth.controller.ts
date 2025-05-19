@@ -26,7 +26,7 @@ export class AuthController {
 	}
 	// 회원 조회 호출
 	@MessagePattern({ cmd: 'findUser' })
-	findUserPoint(): Promise<User[]> {
+	findUserPoint(org: { page: number; limit: number; sort: string }): Promise<User[]> {
 		return this.authService.find_user_service();
 	}
 	// 등급 부여 호출

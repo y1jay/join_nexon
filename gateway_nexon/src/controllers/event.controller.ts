@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Inject, Patch, Post, Query, Req, Res } from '@nestjs/common';
-import { AuthService } from 'src/services/auth.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 
@@ -7,8 +6,7 @@ import { Observable } from 'rxjs';
 export class EventController {
 	constructor(
 		@Inject('EVENT_SERVICE')
-		private readonly EventProxy: ClientProxy,
-		private readonly AuthService: AuthService
+		private readonly EventProxy: ClientProxy
 	) {}
 
 	// // 사용자 가입

@@ -7,7 +7,7 @@ export type UserDocument = HydratedDocument<User>;
 @Schema({ collection: 'users' })
 export class User {
 	// 유저아이디
-	@Prop({ required: true })
+	@Prop({ required: true, unique: true })
 	user_id: string;
 
 	// 유저 비밀번호
@@ -19,7 +19,7 @@ export class User {
 	name: string;
 
 	// 유저 닉네임
-	@Prop({ required: true })
+	@Prop({ required: true, unique: true })
 	nick: string;
 
 	// 유저 상태 코드
@@ -31,7 +31,7 @@ export class User {
 	phone_number: string;
 
 	// 유저 이메일
-	@Prop({ required: true })
+	@Prop({ required: true, unique: true })
 	email: string;
 
 	// 유저 로그인 타입
@@ -48,3 +48,4 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+

@@ -50,6 +50,11 @@ export class AuthService {
 			if (find_nick) {
 				return { statusCode: 400, message: '닉네임 중복' };
 			}
+			// 아이디 중복
+			const find_user_id = await this.user.findOne({ nick: org['join_user_dto'].user_id }).exec();
+			if (find_user_id) {
+				return { statusCode: 400, message: '아이디 중복' };
+			}
 			// 비밀번호 암호화
 			org['join_user_dto'].password = (await bcrypt.hash(org['join_user_dto'].password, 10)).toString();
 

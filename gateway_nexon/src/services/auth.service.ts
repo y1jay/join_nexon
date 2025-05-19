@@ -4,10 +4,11 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
 	constructor(private readonly jwt: JwtService) {}
 
+	// 토큰 저장
 	async logIn(data: any, res: any): Promise<any> {
 		const authInfo = await data;
-		console.log(authInfo, 'AUTH');
-		if (authInfo.statusCode == 200) {
+		// 로그인 성공시 토큰 저장
+		if (authInfo?.statusCode == 200) {
 			res.cookie(
 				'Authorization',
 				{

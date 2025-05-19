@@ -10,6 +10,7 @@ const bootstrap = async () => {
 	const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, options);
 	await app.listen();
 
-	Logger.log(`🚀 Application is running on: TCP ${JSON.stringify(options)}`, 'bootstrap-msa');
+	Logger.log(`🚀 Auth Server: TCP ${JSON.stringify(options)}`, 'bootstrap-auth');
 };
 bootstrap();
+

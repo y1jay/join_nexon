@@ -12,7 +12,7 @@ const bootstrap = async () => {
 	app.use(cookieParser());
 	await app.listen(port);
 
-	Logger.log(`🚀 Application Port Is ${JSON.stringify(port)}`, 'bootstrap');
+	Logger.log(`🚀 GateWay Port Is ${JSON.stringify(port)}`, 'GateWay');
 };
 bootstrap();
 
