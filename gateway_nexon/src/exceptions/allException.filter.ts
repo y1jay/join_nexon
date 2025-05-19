@@ -6,8 +6,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
 	constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
 	catch(exception: HttpException, host: ArgumentsHost): void {
-		console.log(exception, 'EXCEOPTION');
 		const { httpAdapter } = this.httpAdapterHost;
+		console.log(exception, 'EC');
 		const ctx = host.switchToHttp();
 		let responseBody = {
 			statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -17,6 +17,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 		if (exception instanceof HttpException) {
 			// responseBody.statusCode = exception.getStatus();
 			// responseBody.message = exception.message;
+
 			Object.assign(responseBody, exception.getResponse());
 		}
 		if (exception?.getStatus() == 403) {
@@ -25,7 +26,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 				message: '권한 없음',
 			};
 		}
+
 		httpAdapter.reply(ctx.getResponse(), responseBody, responseBody.statusCode);
 	}
 }
-

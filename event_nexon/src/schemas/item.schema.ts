@@ -6,6 +6,10 @@ export type ItemDocument = HydratedDocument<Item>;
 // 아이템 스키마
 @Schema({ collection: 'item' })
 export class Item {
+	//  리워드 id
+	@Prop({ required: true })
+	reward_id: string;
+
 	// 아이템 명
 	@Prop({ required: true })
 	item_name: string;
@@ -13,6 +17,14 @@ export class Item {
 	// 아이템 타입
 	@Prop({ required: true })
 	item_type: string;
+
+	// 아이템 효과
+	@Prop({ required: true })
+	item_effect: string;
+
+	// 아이템 갯수
+	@Prop({ required: true })
+	item_count: number;
 
 	// 아이템 사용가능여부
 	@Prop({ required: true })
@@ -44,4 +56,3 @@ export class Item {
 }
 
 export const ItemSchema = SchemaFactory.createForClass(Item);
-

@@ -11,14 +11,18 @@ export class Provide {
 	@Prop({ required: true })
 	action: string;
 
-	// 리워드 아이디
+	// 이벤트 아이디
 	@Prop({ required: true })
-	reward_id: string;
+	event_id: string;
+
+	// 보상 단계
+	@Prop({ required: true })
+	provide_round: number;
 
 	// 지급 조건 사용 여부
 	@Prop({ required: true })
 	use_yn: boolean;
-	
+
 	// 등록자
 	@Prop({ required: true })
 	register: string;
@@ -28,7 +32,7 @@ export class Provide {
 	regist_id: string;
 
 	// 등록일
-	@Prop({default:util.getNow()})
+	@Prop({ default: util.getNow() })
 	regist_date: Date;
 
 	// 수정자
@@ -36,13 +40,12 @@ export class Provide {
 	modifier?: string;
 
 	// 수정자id
-	@Prop({default:''})
+	@Prop({ default: '' })
 	modify_id?: string;
 
 	// 수정일
-	@Prop({default:util.getNow()})
+	@Prop({ default: util.getNow() })
 	modify_date?: Date;
-	
 }
 
 export const ProvideSchema = SchemaFactory.createForClass(Provide);

@@ -16,6 +16,7 @@ import { JwtRefreshStrategy } from './auth/jwtRefresh.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './services/auth.service';
 import { RolesGuard } from './guard/role.guard';
+import { EventController } from './controllers/event.controller';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
@@ -27,7 +28,7 @@ import { RolesGuard } from './guard/role.guard';
 		}),
 		// MongooseModule.forRoot(process.env.DB_URL)
 	],
-	controllers: [AuthController],
+	controllers: [AuthController, EventController],
 	providers: [
 		{
 			provide: APP_FILTER,
@@ -64,4 +65,3 @@ import { RolesGuard } from './guard/role.guard';
 	exports: [PassportModule],
 })
 export class AppModule {}
-

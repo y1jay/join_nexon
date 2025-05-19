@@ -24,17 +24,6 @@ export class IsNotEmptyPipe implements PipeTransform {
 }
 
 @Injectable()
-export class SeparatorValidationPipe implements PipeTransform {
-	constructor(private readonly userValue: any, private readonly required: boolean = false) {}
-
-	transform(value: string, metadata: ArgumentMetadata) {
-		if (this.required === false && value === undefined) return;
-
-		return value.split(this.userValue);
-	}
-}
-
-@Injectable()
 export class PhoneValidationPipe implements PipeTransform {
 	constructor(private readonly userValue: any = '', private readonly required: boolean = false) {}
 
@@ -56,4 +45,3 @@ export class PhoneValidationPipe implements PipeTransform {
 		return value;
 	}
 }
-

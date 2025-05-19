@@ -2,7 +2,7 @@ import { Body, Controller, Get, Inject, Patch, Post, Query, Req, Res } from '@ne
 import { AuthService } from 'src/services/auth.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
-import { joinUserDto } from 'src/dto/joinUserDto';
+import { User } from 'src/dto/userDto';
 import { IsNotEmptyPipe, RequiredValidationPipe } from 'src/pipe/custom.pipe';
 
 @Controller('auth')
@@ -16,7 +16,7 @@ export class AuthController {
 	// 사용자 가입
 	@Post('join')
 	async join_user(
-		@Body('joinUser', RequiredValidationPipe, IsNotEmptyPipe) join_user_dto: joinUserDto,
+		@Body('joinUser', RequiredValidationPipe, IsNotEmptyPipe) join_user_dto: User,
 		@Res() res: Response
 	): Promise<any> {
 		const auth = await this.AuthProxy.send({ cmd: 'joinUser' }, { join_user_dto: join_user_dto }).toPromise();
@@ -44,4 +44,3 @@ export class AuthController {
 		return this.AuthProxy.send({ cmd: 'gradeUser' }, grade_user);
 	}
 }
-

@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
-export class joinUserDto {
+export class User {
 	@IsNotEmpty()
 	@IsString()
 	@Length(5, 10)
@@ -27,9 +27,4 @@ export class joinUserDto {
 	@IsString()
 	@IsEmail()
 	email: string;
-
-	@IsNotEmpty()
-	@IsString()
-	social_type: string;
 }
-

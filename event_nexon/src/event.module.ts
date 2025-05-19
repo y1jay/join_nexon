@@ -8,6 +8,7 @@ import { Event, EventSchema } from './schemas/event.schema';
 import { EventHistory, EventHistorySchema } from './schemas/eventHistory.schema';
 import { EventReward, EventRewardSchema } from './schemas/eventReward.schema';
 import { Item, ItemSchema } from './schemas/item.schema';
+import { EventInventory, EventInventorySchema } from './schemas/eventInventory.schema';
 @Module({
 	imports: [
 		ConfigModule.forRoot({
@@ -18,6 +19,7 @@ import { Item, ItemSchema } from './schemas/item.schema';
 			{ name: Event.name, schema: EventSchema },
 			{ name: EventHistory.name, schema: EventHistorySchema },
 			{ name: Item.name, schema: ItemSchema },
+			{ name: EventInventory.name, schema: EventInventorySchema },
 			{ name: EventReward.name, schema: EventRewardSchema },
 			{ name: Provide.name, schema: ProvideSchema },
 		]),
@@ -26,4 +28,3 @@ import { Item, ItemSchema } from './schemas/item.schema';
 	providers: [EventService],
 })
 export class EventModule {}
-

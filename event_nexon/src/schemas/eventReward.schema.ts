@@ -11,17 +11,9 @@ export class EventReward {
 	@Prop({ required: true })
 	reward_name: string;
 
-	// 보상 단계
+	// 지급조건 id
 	@Prop({ required: true })
-	reward_round: number;
-
-	// 아이템 ID
-	@Prop({ required: true })
-	item_id: string;
-
-	// 아이템 갯수
-	@Prop({ required: true })
-	reward_count: number;
+	provide_id: string;
 
 	// 등록자 타입
 	@Prop({ required: true })
@@ -53,4 +45,3 @@ export class EventReward {
 }
 
 export const EventRewardSchema = SchemaFactory.createForClass(EventReward);
-
