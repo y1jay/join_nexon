@@ -96,8 +96,7 @@ export class EventService {
 	async itemUpdate(org: {
 		item_id: string;
 		item_name?: string;
-		item_type?: Date;
-		item_effect?: Date;
+		item_type?: string;
 		use_yn?: boolean;
 		modifier: string;
 		modify_id: string;
@@ -111,7 +110,7 @@ export class EventService {
 		if (item_update.modifiedCount > 0) {
 			return { statusCode: 200, message: `[${org.item_id}] ${org} 삭제 성공` };
 		} else {
-			return { statusCode: 400, message: '아이템 삭제 실패' };
+			return { statusCode: 400, message: '아이템 수정 실패' };
 		}
 	}
 

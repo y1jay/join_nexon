@@ -14,14 +14,10 @@ export class Item {
 	@Prop({ required: true })
 	item_type: string;
 
-	// 아이템 효과
-	@Prop({ required: true })
-	item_effect: string;
-
 	// 아이템 사용가능여부
 	@Prop({ required: true })
 	use_yn: boolean;
-	
+
 	// 아이템 등록타입
 	@Prop({ required: true })
 	register: string;
@@ -31,7 +27,7 @@ export class Item {
 	regist_id: string;
 
 	// 아이템 등록일
-	@Prop({default:util.getNow()})
+	@Prop({ default: util.getNow() })
 	regist_date: Date;
 
 	// 아이템 수정자
@@ -39,14 +35,13 @@ export class Item {
 	modifier?: string;
 
 	// 아이템 수정자id
-	@Prop({default:''})
+	@Prop({ default: '' })
 	modify_id?: string;
 
 	// 아이템 수정일
-	@Prop({default:util.getNow()})
+	@Prop({ default: util.getNow() })
 	modify_date?: Date;
-
-
 }
 
 export const ItemSchema = SchemaFactory.createForClass(Item);
+
