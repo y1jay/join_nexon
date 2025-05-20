@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+    gateway_nexon:
+        build:
+            context: .
+            dockerfile: docker/docker.gateway_nexon
+        ports:
+            - "8001:8001"
+        restart: always
+        depends_on:
+            - auth_nexon
+            - event_nexon
+        environment:
+            - PORT=8001
+            - AUTH_SERVICE_NAME=AUTH_SERVICE
+            - AUTH_SERVICE_PORT=8081
+            - JWT_ACCESS_EXPIRES=60d
+            - JWT_REFRESH_EXPIRES=180d
+            - JWT_SECRET=JOIN_NEXON
+            - COOKIEAGE=24 * 60 * 60 * 1000
+            - EVENT_SERVICE_NAME=EVENT_SERVICE
+            - EVENT_SERVICE_PORT=8082
+        networks:
+            join_nexon:
+                ipam:
+                    config:
+                        - gateway: "172.19.0.1"
+                          subnet: "172.19.0.0/16"
+    auth_nexon:
+        build:
+            context: .
+            dockerfile: docker/docker.auth_nexon
+        ports:
+            - "8081:8081"
+        environment:
+            - PORT=8082
+            - DB_URL=mongodb+srv://join_nexon_user:987987@joinnexon.ygtkmie.mongodb.net/?retryWrites=true&w=majority&appName=joinNexon
+    event_nexon:
+        build:
+            context: .
+            dockerfile: docker/docker.event_nexon
+        ports:
+            - "8082:8082"
+        environment:
+            - PORT=8081
+            - DB_URL=mongodb+srv://join_nexon_user:987987@joinnexon.ygtkmie.mongodb.net/?retryWrites=true&w=majority&appName=joinNexon
+            - JWT_ACCESS_EXPIRES=60d
+            - JWT_REFRESH_EXPIRES=180d
+            - JWT_SECRET=JOIN_NEXON

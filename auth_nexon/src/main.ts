@@ -13,4 +13,3 @@ const bootstrap = async () => {
 	Logger.log(`🚀 Auth Server: TCP ${JSON.stringify(options)}`, 'bootstrap-auth');
 };
 bootstrap();
-

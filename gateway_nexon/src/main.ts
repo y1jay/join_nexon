@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
 import { Logger } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 const cookieParser = require('cookie-parser');
 
 const bootstrap = async () => {
@@ -10,9 +11,12 @@ const bootstrap = async () => {
 
 	const app = await NestFactory.create(AppModule);
 	app.use(cookieParser());
-	await app.listen(port);
+	const swaggerConfig = new DocumentBuilder().addBearerAuth().build();
+	const doc = SwaggerModule.createDocument(app, swaggerConfig);
 
-	Logger.log(`🚀 GateWay Port Is ${JSON.stringify(port)}`, 'GateWay');
+	SwaggerModule.setup('ApiDocument', app, doc);
+	await app.listen(port, '0.0.0.0');
+
+	Logger.log(`🚀 GateWay Port Is ${JSON.stringify(port)},${process.env.PORT}`, 'GateWay');
 };
 bootstrap();
-

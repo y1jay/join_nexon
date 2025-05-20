@@ -17,10 +17,12 @@ export class RolesGuard implements CanActivate {
 		 */
 		// 관리자 전부 성공
 		// 로그인, 가입 전부 성공
-		console.log(handler, '>>');
+		console.log(handler.startsWith('auditor'), '>>');
+		console.log(handler.startsWith('auditor'), '>>');
+		console.log(user?.login_type == 'operator', '###');
 		if (
 			user?.login_type == 'admin' ||
-			['join_user', 'login_user'].includes(handler) ||
+			['join_user', 'login_user', 'user_activeEvent'].includes(handler) ||
 			(user?.login_type == 'operator' && handler.startsWith('auditor'))
 		) {
 			return true;

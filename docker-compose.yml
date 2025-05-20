@@ -1,0 +1,55 @@
+networks:
+    app-network:
+        driver: bridge
+
+services:
+    gateway_nexon:
+        build:
+            context: .
+            dockerfile: docker/docker.gateway_nexon
+        ports:
+            - "8001:8001"
+        networks:
+            - app-network
+        # environment:
+        #     - PORT=8080
+        #     - AUTH_SERVICE_NAME=AUTH_SERVICE
+        #     - AUTH_SERVICE_PORT=8801
+        #     - AUTH_SERVICE_HOST=127.0.0.1
+        #     - JWT_ACCESS_EXPIRES=60d
+        #     - JWT_REFRESH_EXPIRES=180d
+        #     - JWT_SECRET=JOIN_NEXON
+        #     - COOKIEAGE=24 * 60 * 60 * 1000
+        #     - EVENT_SERVICE_NAME=EVENT_SERVICE
+        #     - EVENT_SERVICE_PORT=8802
+        #     - EVENT_SERVICE_HOST=127.0.0.1
+        depends_on:
+            - auth_nexon
+            - event_nexon
+        env_file:
+            - gateway_nexon/.env
+    auth_nexon:
+        build:
+            context: .
+            dockerfile: docker/docker.auth_nexon
+        ports:
+            - "8081:8081"
+        networks:
+            - app-network
+        env_file:
+            - auth_nexon/.env
+        # environment:
+        #     - PORT=8801
+        #     - HOST=127.0.0.1
+        #     - DB_URL=mongodb+srv://join_nexon_user:987987@joinnexon.ygtkmie.mongodb.net/?retryWrites=true&w=majority&appName=joinNexon
+
+    event_nexon:
+        build:
+            context: .
+            dockerfile: docker/docker.event_nexon
+        ports:
+            - "8082:8082"
+        networks:
+            - app-network
+        env_file:
+            - event_nexon/.env
