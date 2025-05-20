@@ -1,80 +1,65 @@
-# 프로젝트명
+# JOIN_NEXON
 
-> 간략한 프로젝트 소개 문구를 작성합니다.
+> 넥슨 코딩테스트 과제.
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-한 두 문단으로 프로젝트 소개 글을 작성합니다.
+## 비고
+
+enum 은 typeString에서 tree shaking 을 지원하지 않아 제외했습니다.
+.env파일도 테스트에 편의를 위해 커밋해놓았습니다.
+만일 도커 실행이 되지 않는다면 터미널|쉘 사용 부탁드립니다 ..
 
 ![](../header.png)
 
 ## 설치 방법
 
-OS X & 리눅스:
+Docker:
 
 ```sh
-npm install my-crazy-module --save
+docker-compose up --build
 ```
 
-윈도우:
+NotDocker:
 
 ```sh
-edit autoexec.bat
+cd gateway_nexon && npm install cd ../auth_nexon && npm install cd ../event_nexon && npm install
+```
+
+```sh
+cd gateway_nexon && npm start cd auth_nexon && npm install cd event_nexon && npm install
 ```
 
 ## 사용 예제
 
-스크린 샷과 코드 예제를 통해 사용 방법을 자세히 설명합니다.
+권한 별 유저
+admin : { user_id : nexon , password : 987987 }
+operator : { user_id : y11 , password : 0531 }
 
-_더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
+스웨거 경로 http://localhost:8001/ApiDocument#/
 
-## 개발 환경 설정
+## 흐름도
 
-모든 개발 의존성 설치 방법과 자동 테스트 슈트 실행 방법을 운영체제 별로 작성합니다.
+**유저**
+유저 가입(USER) > 등급 부여
 
-```sh
-make install
-npm test
-```
+**이벤트 등록**
+이벤트 등록 > 지급 조건 등록 > 보상 정보 등록 > 아이템 등록
+
+**이벤트 실행**
+유저 : 이벤트 리스트 조회 > 이벤트 실행 1차(문제 제출) > 이벤트 실행 2차(답변) > 성공시 보상요청 조회
+관리자 : 유저 보상 요청 조회 > 보상 지급
 
 ## 업데이트 내역
 
--   0.2.1
-    -   수정: 문서 업데이트 (모듈 코드 동일)
--   0.2.0
-    -   수정: `setDefaultXYZ()` 메서드 제거
-    -   추가: `init()` 메서드 추가
--   0.1.1
-       \* 버그 수정: `baz()` 메서드 호출 시 부팅되지 않는 현상 (@컨트리뷰터 감사합니다!)
--   0.1.0
-    -   첫 출시
-    -   수정: `foo()` 메서드 네이밍을 `bar()`로 수정
--   0.0.1
-    -   작업 진행 중
+-   1
 
-## 정보
+## Stack
 
-이름 – [@트위터 주소](https://twitter.com/dbader_org) – 이메일주소@example.com
-
-XYZ 라이센스를 준수하며 `LICENSE`에서 자세한 정보를 확인할 수 있습니다.
-
-[https://github.com/yourname/github-link](https://github.com/dbader/)
-
-## 기여 방법
-
-1. (<https://github.com/yourname/yourproject/fork>)을 포크합니다.
-2. (`git checkout -b feature/fooBar`) 명령어로 새 브랜치를 만드세요.
-3. (`git commit -am 'Add some fooBar'`) 명령어로 커밋하세요.
-4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요.
-5. 풀리퀘스트를 보내주세요.
-
-<!-- Markdown link & img dfn's -->
-
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki
+[DB] : MongoDB
+[Nodejs] : v18.20.8
+[Auth] : JWT
+[Language] : TypeStript
+[Etc] : Docker & docker-compose
