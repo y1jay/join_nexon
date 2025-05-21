@@ -72,6 +72,7 @@ rand : 문답형 퀴즈<br/>
 
 **[DB]** : MongoDB<br/>
 **[Nodejs]** : v18.20.8<br/>
+**[Nestjs]** : 10.3.2(Nodejs18의 최신)<br/>
 **[Auth]** : JWT<br/>
 **[Language]** : TypeStript<br/>
 **[Etc]** : Docker & docker-compose
