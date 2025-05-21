@@ -241,6 +241,33 @@ export class EventController {
 
 	// 아이템 수정
 	@Patch('eventItemModify')
+	@ApiOperation({ summary: '아이템 수정(OPERATOR)' })
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				item_reg_dto: {
+					type: 'object',
+					properties: {
+						item_name: { example: '아이템 명' },
+						item_type: { example: '아이템 타입' },
+						item_effect: { example: '아이템 효과' },
+						use_yn: { example: '사용 여부' },
+						item_count: { example: '아이템 갯수' },
+					},
+				},
+			},
+		},
+	})
+	@ApiResponse({
+		schema: {
+			type: 'object',
+			properties: {
+				statusCode: { example: '상태코드 (200:성공 400:실패)' },
+				message: { example: '메세지' },
+			},
+		},
+	})
 	operator_itemModify(
 		@Body('item_mod_dto', RequiredValidationPipe, IsNotEmptyPipe)
 		org: {
@@ -364,8 +391,33 @@ export class EventController {
 		dto.regist_id = req['user']._id;
 		return this.EventProxy.send({ cmd: 'eventRewardRegistration' }, dto);
 	}
-	// 이벤트 보상에 아이템정보 삽입
+	// 이벤트 보상 수정
 	@Patch('eventRewardModify')
+	@ApiOperation({ summary: '보상정보 수정(OPERATOR)' })
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				item_reg_dto: {
+					type: 'object',
+					properties: {
+						provide_id: { example: '지급 조건 고유번호' },
+						use_yn: { example: '사용여부' },
+						reward_name: { example: '지급명' },
+					},
+				},
+			},
+		},
+	})
+	@ApiResponse({
+		schema: {
+			type: 'object',
+			properties: {
+				statusCode: { example: '상태코드 (200:성공 400:실패)' },
+				message: { example: '메세지' },
+			},
+		},
+	})
 	operator_eventRewardItemSet(
 		@Body('reward_mod_dto', RequiredValidationPipe, IsNotEmptyPipe)
 		org: {
@@ -543,8 +595,34 @@ export class EventController {
 		return this.EventProxy.send({ cmd: 'eventProvideActionList' }, { page, limit, sort });
 	}
 
-	// 이벤트 획득 조건 사용안함처리
+	// 이벤트 획득 조건 수정
 	@Patch('eventProvideActionModify')
+	@ApiOperation({ summary: '획득조건 수정(OPERATOR)' })
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				item_reg_dto: {
+					type: 'object',
+					properties: {
+						action: { example: '획득조건(quiz:ox 퀴즈, rand:문답형)' },
+						event_id: { example: '이벤트 고유번호' },
+						use_yn: { example: '사용여부' },
+						provide_round: { example: '획득 조건 라운드' },
+					},
+				},
+			},
+		},
+	})
+	@ApiResponse({
+		schema: {
+			type: 'object',
+			properties: {
+				statusCode: { example: '상태코드 (200:성공 400:실패)' },
+				message: { example: '메세지' },
+			},
+		},
+	})
 	operator_eventProvideActionModify(
 		@Body('action_mod_dto', RequiredValidationPipe, IsNotEmptyPipe)
 		org: {
@@ -618,6 +696,33 @@ export class EventController {
 
 	// 이벤트 수정 (시작일시,종료일시,  보상정보, 활성/비활성 정보)!
 	@Patch('eventModify')
+	@ApiOperation({ summary: '이벤트 수정(OPERATOR)' })
+	@ApiBody({
+		schema: {
+			type: 'object',
+			properties: {
+				item_reg_dto: {
+					type: 'object',
+					properties: {
+						event_name: { example: '이벤트명' },
+						start_date: { example: '이벤트 시작일' },
+						end_date: { example: '이벤트 종료일' },
+						use_yn: { example: '이벤트 사용여부' },
+						provide_id: { example: '지급 조건 정보' },
+					},
+				},
+			},
+		},
+	})
+	@ApiResponse({
+		schema: {
+			type: 'object',
+			properties: {
+				statusCode: { example: '상태코드 (200:성공 400:실패)' },
+				message: { example: '메세지' },
+			},
+		},
+	})
 	operator_eventModify(
 		@Body('event_mod_dto', RequiredValidationPipe, IsNotEmptyPipe)
 		org: {
@@ -793,3 +898,4 @@ export class EventController {
 		return this.EventProxy.send({ cmd: 'eventHistoryList' }, { page, limit, sort });
 	}
 }
+
