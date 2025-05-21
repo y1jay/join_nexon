@@ -28,7 +28,7 @@ cd gateway_nexon && npm start cd auth_nexon && npm install --force cd event_nexo
 admin : { user_id : nexon , password : 987987 }<br/>
 operator : { user_id : y11 , password : 0531 }<br/>
 
-USER : 실사용 유저 (default)[이벤트 참여] <br/> <br/>
+USER : 실사용 유저 (default)[이벤트 참여] <br/>
 OPERATOR : 운영자 [이벤트관련 생성 및 수정 & 지급] <br/>
 AUDITOR : 감사자 [유저 요청 리스트 확인] <br/>
 ADMIN : 관리자 [모든 기능 사용 가능]<br/>
@@ -45,7 +45,7 @@ rand : 문답형 퀴즈<br/>
 유저 가입(USER) > 등급 부여 <br/> <br/>
 
 **이벤트 등록**<br/>
-하위로 내려갈 수록 N:1조건<br/>
+하위로 내려갈 수록 1:N<br/>
 이벤트 등록 > 지급 조건 등록(quiz,rand) > 보상 정보 등록 > 아이템 등록
 
 **이벤트 실행**<br/>
@@ -68,7 +68,7 @@ rand : 문답형 퀴즈<br/>
 
 <br/> 
 - 최대한 관리자 혹은 운영자가 자유롭게 이벤트를 생성 및 수정 할 수 있게 고안하여 설계 및 작업하였습니다.<br/><br/>
-- 수정 기능도 있으나 스웨거작업이 빠져있습니다 필요하실 경우 사용해주시면 됩니다.<br/><br/>
+- 수정 기능도 필요하실 경우 사용해주시면 됩니다.<br/><br/>
 - 이벤트 별 지급 조건, 지급 조건 별 보상, 보상 별 아이템 각기 다르게 등록 할 수 있습니다.<br/><br/>
 - docker-compose 관련하여 이미지 업로드 및 빌드 & 실행까지는 문제 없이 잘 되었으나<br/><br/>
   호스트 문제가 계속 일어나 불안정합니다 포트포워딩까지 해보려 했으나 시간이 모자란 점 양해부탁드립니다<br/><br/>
