@@ -15,6 +15,7 @@ const bootstrap = async () => {
 	const doc = SwaggerModule.createDocument(app, swaggerConfig);
 
 	SwaggerModule.setup('ApiDocument', app, doc);
+	app.enableCors();
 	await app.listen(port, '0.0.0.0');
 
 	Logger.log(`🚀 GateWay Port Is ${JSON.stringify(port)},${process.env.PORT}`, 'GateWay');

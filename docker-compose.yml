@@ -3,24 +3,24 @@ services:
         build:
             context: .
             dockerfile: docker/docker.gateway_nexon
+        container_name: gateway_nexon
         ports:
             - "8001:8001"
         networks:
-            - auth-serv
-            - event-serv
+            - gateway-serv
         environment:
             - PORT=8001
-            - HOST=localhost
+            - HOST=gateway_nexon
             - AUTH_SERVICE_NAME=AUTH_SERVICE
             - AUTH_SERVICE_PORT=8081
-            - AUTH_SERVICE_HOST=localhost
+            - AUTH_SERVICE_HOST=auth_nexon
             - JWT_ACCESS_EXPIRES=60d
             - JWT_REFRESH_EXPIRES=180d
             - JWT_SECRET=JOIN_NEXON
             - COOKIEAGE=24 * 60 * 60 * 1000
             - EVENT_SERVICE_NAME=EVENT_SERVICE
             - EVENT_SERVICE_PORT=8082
-            - EVENT_SERVICE_HOST=localhost
+            - EVENT_SERVICE_HOST=event_nexon
         depends_on:
             - auth_nexon
             - event_nexon
@@ -30,34 +30,37 @@ services:
         build:
             context: .
             dockerfile: docker/docker.auth_nexon
+        container_name: auth_nexon
         ports:
             - "8081:8081"
         networks:
-            - auth-serv
+            - gateway-serv
         environment:
             - PORT=8081
-            - HOST=localhost
+            - HOST=auth_nexon
             - DB_URL=mongodb+srv://join_nexon_user:987987@joinnexon.ygtkmie.mongodb.net/?retryWrites=true&w=majority&appName=joinNexon
-        # env_file:
-        #     - auth_nexon/.env
-        # environment:
-        #     - PORT=8801
-        #     - HOST=127.0.0.1
-
+            - JWT_ACCESS_EXPIRES=60d
+            - JWT_REFRESH_EXPIRES=180d
+            - JWT_SECRET=JOIN_NEXON
+        extra_hosts:
+            - host.docker.internal:host-gateway
     event_nexon:
         build:
             context: .
             dockerfile: docker/docker.event_nexon
+        container_name: event_nexon
         ports:
             - "8082:8082"
         networks:
-            - event-serv
+            - gateway-serv
         environment:
             - PORT=8082
-            - HOST=localhost
+            - HOST=event_nexon
             - DB_URL=mongodb+srv://join_nexon_user:987987@joinnexon.ygtkmie.mongodb.net/?retryWrites=true&w=majority&appName=joinNexon
-        # env_file:
-        #     - event_nexon/.env
+        extra_hosts:
+            - host.docker.internal:host-gateway
 networks:
-    auth-serv:
-    event-serv:
+    gateway-serv:
+        driver: bridge
+    # auth-serv:
+    # event-serv:
