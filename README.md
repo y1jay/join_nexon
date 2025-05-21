@@ -69,10 +69,10 @@ rand : 문답형 퀴즈<br/>
 
 ## Stack
 
-[DB] : MongoDB
-[Nodejs] : v18.20.8
-[Auth] : JWT
-[Language] : TypeStript
+[DB] : MongoDB<br/>
+[Nodejs] : v18.20.8<br/>
+[Auth] : JWT<br/>
+[Language] : TypeStript<br/>
 [Etc] : Docker & docker-compose
 
 ## 부가 설명\*\*
