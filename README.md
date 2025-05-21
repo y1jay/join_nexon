@@ -15,13 +15,24 @@ docker-compose up --build
 NotDocker:
 
 ```sh
-cd gateway_nexon && npm install --force cd ../auth_nexon && npm install --force cd ../event_nexon && npm install --force
+cd gateway_nexon && npm install --force
+cd ../auth_nexon && npm install --force
+cd ../event_nexon && npm install --force
 ```
 
 ```sh
-cd gateway_nexon && npm start cd auth_nexon && npm install --force cd event_nexon && npm install --force
+cd gateway_nexon && npm start
 ```
 
+```sh
+cd auth_nexon && npm start
+```
+
+```sh
+cd event_nexon && npm start
+```
+
+<br/>
 ## 사용 예제
 
 **권한 별 유저**
