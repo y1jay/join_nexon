@@ -1,4 +1,4 @@
-# JOIN_NEXON 잘 부탁드립니다!!
+# JOIN_NEXON
 
 > 넥슨 코딩테스트 과제.
 
