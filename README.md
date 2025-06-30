@@ -1,6 +1,6 @@
 # JOIN_NEXON
 
-> 넥슨 코딩테스트 과제.
+> 넥슨 MSA기반 이벤트 서버.
 
 ![](../header.png)
 
